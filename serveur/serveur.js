@@ -38,8 +38,56 @@ app.post("/ajouterProduit",(req,res)=>{
     })
 })
 
+app.get("/afficherDetail/:ref",(req , res)=>{
+    const params = req.params.ref
+    const detailStatement = "select * from produits where ref = ?"
+    db.query(detailStatement,[params],(err , data)=>{
+        err&&console.error("detailsErr request  " + err)
+        return res.json(data)
+    })
+
+})
+app.get("/modifierProduit/:ref",(req , res )=>{
+
+    const refProduit = req.params.ref
+    const statement = "select * from produits where ref = ?"
+    db.query(statement,[refProduit],(err , data )=>{
+        err&&console.error("ModifierProduit Err " + err)
+        console.log("produit deleted successfully")
+        return res.json(data)
+    })
+})
 
 
+app.delete("/supprimerProduit/:ref",(req , res)=>{
+
+
+    const deleteStatement = "delete from produits where ref = ?"
+    const refParamas = req.params.ref
+    console.log(refParamas)
+    db.query(deleteStatement,[refParamas],(err,data)=>{
+        err&&res.json(err)
+        return res.json(data)
+    })
+
+
+
+})
+
+
+app.put("/modifierProduit/:ref",(req,res)=>{
+     const updateStatement = "update produits set libelle = ? , description = ? , prix = ? , url_photo= ?  , idCategorie = ? "
+       const refProduit = req.params.ref
+       const {libelle , description , prix , url_photo  , idCategorie } = req.body
+       db.query(
+           updateStatement ,
+           [libelle , description , prix , url_photo , idCategorie],
+           (err, data )=>{
+               err&&res.json(err)
+               return res.json(data)
+           }
+           )
+})
 
 
 

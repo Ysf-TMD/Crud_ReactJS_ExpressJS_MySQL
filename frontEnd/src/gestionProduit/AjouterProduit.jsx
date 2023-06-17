@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useState} from "react"
 import axios from "axios"
 
@@ -17,6 +17,7 @@ const AjouterProduit=()=>{
         axios.post("http://127.0.0.1:8081/ajouterProduit",values)
             .then(res=>console.log(res))
             .catch(err=>console.error("axios ajouterProduit post err : "+ err))
+        // location.reload();
     }
 
     return <>
