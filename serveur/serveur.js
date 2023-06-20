@@ -53,7 +53,6 @@ app.get("/modifierProduit/:ref",(req , res )=>{
     const statement = "select * from produits where ref = ?"
     db.query(statement,[refProduit],(err , data )=>{
         err&&console.error("ModifierProduit Err " + err)
-        console.log("produit deleted successfully")
         return res.json(data)
     })
 })
